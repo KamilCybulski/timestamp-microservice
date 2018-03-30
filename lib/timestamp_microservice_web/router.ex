@@ -19,8 +19,9 @@ defmodule TimestampMicroserviceWeb.Router do
     get "/", UsageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TimestampMicroserviceWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TimestampMicroserviceWeb do
+    pipe_through :api
+
+    get "/:input", ApiController, :index
+  end
 end
