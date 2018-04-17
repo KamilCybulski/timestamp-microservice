@@ -12,7 +12,7 @@ defmodule TimestampMicroservice.Api do
   end
 
   defp process_timestamp(ts) do
-    %{ timestamp: ts, natural: parse_timestamp(ts) }
+    %{ timestamp: String.to_integer(ts), natural: parse_timestamp(ts) }
   end
 
   defp parse_timestamp(ts) do
