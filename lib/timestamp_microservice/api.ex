@@ -8,7 +8,7 @@ defmodule TimestampMicroservice.Api do
   end
 
   defp is_timestamp?(input) do
-    String.match?(input, ~r/^\d+$/)
+    String.match?(input, ~r/^-?\d+$/)
   end
 
   defp process_timestamp(ts) do
