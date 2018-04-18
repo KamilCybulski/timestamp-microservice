@@ -12,15 +12,18 @@ defmodule TimestampMicroservice.Api do
   end
 
   defp process_timestamp(ts) do
-    %{ timestamp: String.to_integer(ts), natural: parse_timestamp(ts) }
+    ts = String.to_integer(ts)
+    date = DateTime.from_unix(ts)
+
+    parse_timestamp(date, ts)
   end
 
-  defp parse_timestamp(ts) do
-    ts
-    |> String.to_integer
-    |> DateTime.from_unix
-    |> (fn(dt) -> elem(dt, 1) end).()
-    |> DateTime.to_date
+  defp parse_timestamp({:error, _}, _) do
+    %{error: true, reason: "Invalid unix time"}
+  end
+
+  defp parse_timestamp({:ok, dt}, ts) do
+    %{timestamp: ts, natural: DateTime.to_date(dt)}
   end
 
   defp process_date(input) do
